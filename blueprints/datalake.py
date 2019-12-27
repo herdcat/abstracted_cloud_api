@@ -18,6 +18,18 @@ def list_buckets():
     resp = s3.listBuckets()
     return Response(resp.__str__(), 200)
 
+@datalake.route("/create_bucket/<bucket_name>", methods=['GET'])
+def create_bucket(bucket_name):
+    s3 = S3Connector('token_chamgeme_later', 'us-east-1')
+    resp = s3.createBucket(bucket_name)['Location']
+    return Response(resp.__str__(), 200)
+
+@datalake.route("/delete_bucket/<bucket_name>", methods=['GET'])
+def delete_bucket(bucket_name):
+    s3 = S3Connector('token_chamgeme_later', 'us-east-1')
+    resp = s3.deleteBucket(bucket_name)
+    return Response(resp.__str__(), 200)
+
 @datalake.route("/list_objects/<bucket_name>", methods=['GET'])
 def list_objects(bucket_name):
     s3 = S3Connector('token_chamgeme_later', 'us-east-1')

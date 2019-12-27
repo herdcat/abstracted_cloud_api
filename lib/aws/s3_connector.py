@@ -21,11 +21,11 @@ class S3Connector ():
     def listBuckets(self):
         return self.client.list_buckets()['Buckets']
 
+    def createBucket(self, bucket_name):
+        return self.client.create_bucket(Bucket=bucket_name)
+
+    def deleteBucket(self, bucket_name):
+        return self.client.delete_bucket(Bucket=bucket_name)
+
     def listObjects(self,bucket_name):
         return self.client.list_objects_v2(Bucket=bucket_name)['Contents']
-
-    # def retreiveQuery(self, queryId, nextToken=''):
-    #     return self.client.get_named_query(NamedQueryId=queryId)['NamedQuery']
-
-    # def retreiveQueries(self, workgroup=None, nextToken=None):
-    #     return self.client.list_named_queries()['NamedQueryIds']

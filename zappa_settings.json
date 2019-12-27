@@ -1,0 +1,9 @@
+{
+    // The name of your stage
+    "dev": {
+        // The name of your S3 bucket
+        "s3_bucket": "zappa-deploy-jpb",
+        "app_function": "lambda_handler.app",
+        "aws_region" : "us-east-1"
+    }
+}
