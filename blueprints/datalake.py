@@ -1,0 +1,25 @@
+from flask import Blueprint, Response, request, json
+from lib.aws.s3_connector import S3Connector
+
+datalake = Blueprint('datalake', __name__, url_prefix='/datalake')
+
+@datalake.route("/copy_object", methods=['POST'])
+def copy_object():
+    params = json.loads(request.data)
+    source_location = params['source_location']
+    dest_location = params['dest_location']
+    s3 = S3Connector('token_chamgeme_later', 'us-east-1')
+    resp = s3.copyObject(source_location, dest_location)
+    return Response(resp.__str__(), 200)
+
+@datalake.route("/list_buckets", methods=['GET'])
+def list_buckets():
+    s3 = S3Connector('token_chamgeme_later', 'us-east-1')
+    resp = s3.listBuckets()
+    return Response(resp.__str__(), 200)
+
+@datalake.route("/list_objects/<bucket_name>", methods=['GET'])
+def list_objects(bucket_name):
+    s3 = S3Connector('token_chamgeme_later', 'us-east-1')
+    resp = s3.listObjects(bucket_name)
+    return Response(resp.__str__(), 200)
