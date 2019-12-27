@@ -29,3 +29,13 @@ class S3Connector ():
 
     def listObjects(self,bucket_name):
         return self.client.list_objects_v2(Bucket=bucket_name)['Contents']
+
+    def retreiveObject(self,location):
+        parsed_loc = self.parseObjectDict(location)
+        r = self.client.get_object(Bucket=parsed_loc['Bucket'],Key=parsed_loc['Key'])
+        data = r['Body'].read()
+        return data.decode()
+
+    def deleteObject(self,location):
+        parsed_loc = self.parseObjectDict(location)
+        return self.client.delete_object(Bucket=parsed_loc['Bucket'],Key=parsed_loc['Key'])
